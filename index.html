@@ -20,7 +20,7 @@
 	<div id="map"></div>
 
 	<script>
-		const urls = 'http://api.open-notify.org/iss-now.json'
+		const urls = 'http://api.open-notify.org/iss-now.json';
 		var promise = Promise.resolve(
 		 	fetch(urls).then(url => url.json())
 		 	)
@@ -35,17 +35,26 @@
 			var longitude = Number(val.iss_position.longitude);
 			initMap(latitude, longitude)
 		})	
-		
+
       	function initMap(la, ln) {
         // The location of Uluru
-		  var uluru = {lat: la, lng: ln};
-		  // The map, centered at Uluru
+		  var coord = {lat: la, lng: ln};
+		  // The map, centered at coord
 		  var map = new google.maps.Map(
-		      document.getElementById('map'), {zoom: 3, center: uluru});
-		  // The marker, positioned at Uluru
-		  var marker = new google.maps.Marker({position: uluru, map: map});
+		      document.getElementById('map'), {zoom: 2, center: coord, mapTypeId: 'terrain'});
+		  // The marker, positioned at coord
+		  var circle = new google.maps.Circle({
+			fillColor: 'red',
+          	fillOpacity: .8,
+          	strokeColor: 'red',
+          	strokeWeight: 0.8,
+          	strokeOpacity: 0.8,
+          	map: map,
+			position: coord,
+			center: coord,
+			radius: 250000
+		  })
     	}
-
     </script>
     <script async defer
     	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvPsErTnK2kLlSv_umMRnsTe8bvQ63WmA&callback" >
